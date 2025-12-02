@@ -21,5 +21,9 @@ def test_right_move():
     assert move_right(82, 30) == 12
     
 def test_result_for_test_data():
-    assert run(load_test_data()) == 3
+    assert run(load_test_data(), count_ticks_at_zero) == 3
+    
+def test_result_for_input_data():
+    print(f"Result for data: {run(load_data()), count_ticks_at_zero}")
+    assert run(load_data()) == 1191
     
