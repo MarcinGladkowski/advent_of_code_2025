@@ -21,7 +21,7 @@ def move_left(curent_possition_count: int, move_count: int) -> tuple[int, int]  
     
     move_count = move_count % 100 if move_count > 100 else move_count
     
-    if move_count > curent_possition_count:
+    if move_count > curent_possition_count:    
         return 100 - abs(curent_possition_count - move_count), full_circles
     
     return abs(curent_possition_count - move_count), full_circles
@@ -38,6 +38,9 @@ def move_right(curent_possition_count: int, move_count: int) -> tuple[int, int]:
         
         return curent_possition_count + move_count, full_circles
     
+    if curent_possition_count + move_count == 100:
+        return 0, full_circles
+    
     return curent_possition_count + move_count, 0
 
 
@@ -52,6 +55,9 @@ def count_all_dial_points(current_position: int, full_dial_circles: int) -> int:
     
     return 1 if current_position % 100 == 0 else 0
     
+def write_log(message: str) -> None:
+    with open("log.txt", "a") as log_file:
+        log_file.write(message + "\n")
 
 def run(moves: list[str], counter_function: callable) -> int:
     current_position = STARTING_POSITION_CONST
@@ -68,7 +74,8 @@ def run(moves: list[str], counter_function: callable) -> int:
         
         zero_counter += counter_function(current_position, full_dial_circles)
         
-        
+        #write_log(f"Move: {move}, Current position: {current_position}, Full circles: {full_dial_circles}, Zero counter: {zero_counter}")
+    
     return zero_counter
 
 
