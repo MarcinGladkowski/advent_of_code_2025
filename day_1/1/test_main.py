@@ -24,6 +24,6 @@ def test_result_for_test_data():
     assert run(load_test_data(), count_ticks_at_zero) == 3
     
 def test_result_for_input_data():
-    print(f"Result for data: {run(load_data()), count_ticks_at_zero}")
-    assert run(load_data()) == 1191
+    print(f"Result for data: {run(load_data(), count_ticks_at_zero)}")
+    assert run(load_data(), count_ticks_at_zero) == 1191
     
