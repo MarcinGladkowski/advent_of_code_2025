@@ -1,4 +1,4 @@
-from main import find_invalid_repeated_ids, calculate_invalid_ids
+from main import find_invalid_repeated_ids, calculate_invalid_ids, find_repeat_pattern
 
 def test_invalid_repeated_ids():
     assert find_invalid_repeated_ids([11, 22]) == [11, 22]
@@ -10,9 +10,11 @@ def test_invalid_repeated_ids():
     assert find_invalid_repeated_ids([446443, 446449]) == [446446]
     assert find_invalid_repeated_ids([38593856, 38593862]) == [38593859]
     
+def test_invalid_find_pattern():
+    assert find_repeat_pattern('1212121212') == True
+    
 def test_sum_invalid_ids_for_test_data():
     assert calculate_invalid_ids('day_2/test_input.txt') == 1227775554
     
 def test_sum_invalid_ids_for_input_data():
-    print(f"\nResult: {calculate_invalid_ids('day_2/input.txt')}")
-    assert True
+    assert calculate_invalid_ids('day_2/input.txt') == 18595663903
