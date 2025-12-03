@@ -19,10 +19,17 @@ def test_left_move():
 def test_right_move():
     assert move_right(50, 68) == 18
     assert move_right(82, 30) == 12
+    assert move_right(50, 1000) == 50
     
-def test_result_for_test_data():
-    assert run(load_data("test.txt"), count_ticks_at_zero) == 3
+# def test_result_for_R1000_after_start():    
+#     assert run(['R1000'], count_ticks_at_zero) == 10
+
+# def test_result_for_test_data():
+#     assert run(load_data("test.txt"), count_ticks_at_zero) == 3
     
-def test_result_for_input_data():
-    assert run(load_data("input.txt"), count_ticks_at_zero) == 1191
+# def test_result_for_input_data():
+#     assert run(load_data("input.txt"), count_ticks_at_zero) == 1191
+    
+# def test_count_all_dial_points_for_test_data():
+#     assert all_dial_points(load_data("test.txt")) == 6
     

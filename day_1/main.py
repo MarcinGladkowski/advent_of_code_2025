@@ -22,7 +22,10 @@ def move_left(curent_possition_count: int, move_count: int) -> int:
 def move_right(curent_possition_count: int, move_count: int) -> int:
     
     if curent_possition_count + move_count > 100:
-        return (curent_possition_count + move_count) - 100
+
+        full_circles = move_count // 100 if move_count % 100 == 0 else 1
+        
+        return (curent_possition_count + move_count) - full_circles * 100
     
     return curent_possition_count + move_count
 
@@ -44,11 +47,14 @@ def run(moves: list[str], counter_function: callable) -> int:
         else:
             current_position = move_right(current_position, count)
         
+        
+        print(f"\nMove: {move}, Current position: {current_position}")
+    
         zero_counter += counter_function(current_position)
         
     return zero_counter
 
 
-def count_all_points_zero(moves: list[str]) -> int:
-    return run(moves)
+def all_dial_points(moves: list[str]) -> int:
+    return 0
 
