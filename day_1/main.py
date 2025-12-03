@@ -14,27 +14,27 @@ def get_move_count(instruction: str) -> int:
 
 def move_left(curent_possition_count: int, move_count: int) -> tuple[int, int]  :
     
-    if curent_possition_count - move_count < 0:
-        
-        full_circles = move_count // 100 if move_count % 100 == 0 else 1
-        
-        return 100 * full_circles + (curent_possition_count - move_count), full_circles
+    full_circles = int(move_count / 100) if move_count > 100 else 0
+    move_count = move_count % 100 if move_count > 100 else move_count
     
-    full_dial_circles = 1
+    if move_count > curent_possition_count:
+        return 100 - abs(curent_possition_count - move_count), full_circles
     
-    return curent_possition_count - move_count, full_dial_circles
+    return abs(curent_possition_count - move_count), full_circles
 
 def move_right(curent_possition_count: int, move_count: int) -> tuple[int, int]:
     
-    if curent_possition_count + move_count > 100:
-
-        full_circles = move_count // 100 if move_count % 100 == 0 else 1
+    full_circles = int(move_count / 100) if move_count > 100 else 1
+    
+    if curent_possition_count + move_count > 100:      
+        move_count = move_count % 100 if move_count > 100 else move_count
         
-        return (curent_possition_count + move_count) - full_circles * 100, full_circles
+        if (curent_possition_count + move_count) > 100:
+            return (curent_possition_count + move_count) - 100, full_circles + 1
+        
+        return curent_possition_count + move_count, full_circles
     
-    full_dial_circles = 1
-    
-    return curent_possition_count + move_count, full_dial_circles
+    return curent_possition_count + move_count, 0
 
 
 def count_ticks_at_zero(current_position: int, full_dial_circles: int) -> int:
@@ -42,8 +42,12 @@ def count_ticks_at_zero(current_position: int, full_dial_circles: int) -> int:
 
 
 def count_all_dial_points(current_position: int, full_dial_circles: int) -> int:
-    return full_dial_circles
-
+    
+    if full_dial_circles >= 1:
+        return full_dial_circles
+    
+    return 1 if current_position % 100 == 0 else 0
+    
 
 def run(moves: list[str], counter_function: callable) -> int:
     current_position = STARTING_POSITION_CONST
@@ -57,15 +61,13 @@ def run(moves: list[str], counter_function: callable) -> int:
             current_position, full_dial_circles = move_left(current_position, count)
         else:
             current_position, full_dial_circles = move_right(current_position, count)
+                
+        # print(f"\nMove: {move}, Current position: {current_position}, Full dial circles: {full_dial_circles}")
+        # print(f"IS TO COUNT: {counter_function(current_position, full_dial_circles)}")
         
-        
-        #print(f"\nMove: {move}, Current position: {current_position}")
-    
         zero_counter += counter_function(current_position, full_dial_circles)
+        
         
     return zero_counter
 
-
-def all_dial_points(moves: list[str]) -> int:
-    return 0
 
