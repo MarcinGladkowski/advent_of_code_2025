@@ -15,6 +15,10 @@ def get_move_count(instruction: str) -> int:
 def move_left(curent_possition_count: int, move_count: int) -> tuple[int, int]  :
     
     full_circles = int(move_count / 100) if move_count > 100 else 0
+        
+    if curent_possition_count - move_count < 0 and curent_possition_count != 0:
+        full_circles += 1
+    
     move_count = move_count % 100 if move_count > 100 else move_count
     
     if move_count > curent_possition_count:
@@ -30,7 +34,7 @@ def move_right(curent_possition_count: int, move_count: int) -> tuple[int, int]:
         move_count = move_count % 100 if move_count > 100 else move_count
         
         if (curent_possition_count + move_count) > 100:
-            return (curent_possition_count + move_count) - 100, full_circles + 1
+            return (curent_possition_count + move_count) - 100, full_circles
         
         return curent_possition_count + move_count, full_circles
     
@@ -56,14 +60,11 @@ def run(moves: list[str], counter_function: callable) -> int:
     for move in moves:
         direction = get_move_direction(move)
         count = get_move_count(move)
-        
+                
         if direction == LEFT_DIRECTION_CONST:
             current_position, full_dial_circles = move_left(current_position, count)
         else:
             current_position, full_dial_circles = move_right(current_position, count)
-                
-        # print(f"\nMove: {move}, Current position: {current_position}, Full dial circles: {full_dial_circles}")
-        # print(f"IS TO COUNT: {counter_function(current_position, full_dial_circles)}")
         
         zero_counter += counter_function(current_position, full_dial_circles)
         
