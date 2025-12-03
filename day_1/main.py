@@ -1,10 +1,5 @@
-
-def load_test_data() -> list[str]:
-    with open("test.txt") as f:
-        return list(map(lambda x: x.replace("\n", ""), f.readlines()))
-
-def load_data() -> list[str]:
-    with open("input.txt") as f:
+def load_data(file: str) -> list[str]:
+    with open(file) as f:
         return list(map(lambda x: x.replace("\n", ""), f.readlines()))
 
 STARTING_POSITION_CONST = 50
