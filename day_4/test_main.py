@@ -28,7 +28,4 @@ def test_return_is_applicable_true():
     
 def count_all_applicable():
     assert get_paper_roll(example_data) == 13
-    
-
-# 2265 is to high, 787 is too low (checking only for '.' positions)
-print(get_paper_roll(task_data))
+    assert get_paper_roll(task_data) == 1478

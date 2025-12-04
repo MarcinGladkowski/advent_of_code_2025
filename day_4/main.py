@@ -27,10 +27,10 @@ def get_key_area(area: list, x: int, y: int) -> list[str]:
     
     
 def get_paper_roll(area: list) -> int:
-    count = 0
+    rolls_to_remove = []
     for y in range(len(area)):
         for x in range(len(area[0])):
             element_area = get_area(area, x, y)            
             if is_applicable(element_area) and area[y][x] == '@': # must be paper roll @ :D
-                count += 1
-    return count   
+                rolls_to_remove.append((x, y))
+    return len(rolls_to_remove)
