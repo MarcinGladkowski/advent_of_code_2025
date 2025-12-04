@@ -1,4 +1,4 @@
-from pprint import pprint
+import copy
 
 def get_area(area: list, x: int, y: int) -> list[str]:
     return [
@@ -33,4 +33,22 @@ def get_paper_roll(area: list) -> int:
             element_area = get_area(area, x, y)            
             if is_applicable(element_area) and area[y][x] == '@': # must be paper roll @ :D
                 rolls_to_remove.append((x, y))
-    return len(rolls_to_remove)
+    return len(rolls_to_remove), rolls_to_remove
+
+def get_until_replace_all_paper_rolls(area: list) -> int:
+    
+    area_to_apply = copy.deepcopy(area)
+    total_replaced = 0
+    
+    while True:
+        
+        count_to_replace, rolls_to_replace = get_paper_roll(area_to_apply)
+        
+        if count_to_replace == 0:
+            return total_replaced
+        
+        total_replaced += count_to_replace
+        
+        for x, y in rolls_to_replace:
+            area_to_apply[y][x] = '.'
+        

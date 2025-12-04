@@ -26,6 +26,13 @@ def test_return_is_applicable_true():
     assert is_applicable(get_area(example_data, 2, 9)) is True
     assert is_applicable(get_area(example_data, 8, 9)) is True
     
-def count_all_applicable():
-    assert get_paper_roll(example_data) == 13
-    assert get_paper_roll(task_data) == 1478
+def test_count_all_applicable():
+    assert get_paper_roll(example_data)[0] == 13
+    assert get_paper_roll(task_data)[0] == 1478
+    
+def test_count_all_replaces_rolls():
+    assert get_until_replace_all_paper_rolls(example_data) == 43
+
+
+
+print(get_until_replace_all_paper_rolls(task_data))
