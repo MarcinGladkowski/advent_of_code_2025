@@ -31,7 +31,4 @@ def count_all_applicable():
     
 
 # 2265 is to high, 787 is too low (checking only for '.' positions)
-
-print(task_data)
-
 print(get_paper_roll(task_data))

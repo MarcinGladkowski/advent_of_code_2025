@@ -25,12 +25,12 @@ def get_key_area(area: list, x: int, y: int) -> list[str]:
     
     return area[y][x] # y:row, x:element
     
-
+    
 def get_paper_roll(area: list) -> int:
     count = 0
     for y in range(len(area)):
         for x in range(len(area[0])):
             element_area = get_area(area, x, y)            
-            if is_applicable(element_area) and area[y][x] == '.':
+            if is_applicable(element_area) and area[y][x] == '@': # must be paper roll @ :D
                 count += 1
     return count   
