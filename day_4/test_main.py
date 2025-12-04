@@ -4,6 +4,7 @@ from main import *
 example_data = list_transformer(load_data('day_4/test_input.txt'))
 task_data = list_transformer(load_data('day_4/input.txt'))
 
+
 def test_return_begging_area():
     start_area = get_area(example_data, 0, 0)
 
@@ -29,5 +30,8 @@ def count_all_applicable():
     assert get_paper_roll(example_data) == 13
     
 
-# 2265 is to high
+# 2265 is to high, 787 is too low (checking only for '.' positions)
+
+print(task_data)
+
 print(get_paper_roll(task_data))

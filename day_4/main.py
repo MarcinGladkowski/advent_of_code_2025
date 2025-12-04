@@ -1,3 +1,5 @@
+from pprint import pprint
+
 def get_area(area: list, x: int, y: int) -> list[str]:
     return [
         get_key_area(area, x-1, y-1),
@@ -20,17 +22,15 @@ def get_key_area(area: list, x: int, y: int) -> list[str]:
     
     if (x >= len(area[0])) or (y >= len(area)):
         return None
-        
-    try:
-        return area[y][x] # y:row, x:element
-    except IndexError:
-        return None
+    
+    return area[y][x] # y:row, x:element
     
 
 def get_paper_roll(area: list) -> int:
     count = 0
     for y in range(len(area)):
         for x in range(len(area[0])):
-            if is_applicable(get_area(area, x, y)):
+            element_area = get_area(area, x, y)            
+            if is_applicable(element_area) and area[y][x] == '.':
                 count += 1
     return count   
