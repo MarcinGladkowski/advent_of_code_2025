@@ -20,3 +20,8 @@ def test_split_input_data():
     
     assert fresh_ranges == ['3-5', '10-14', '16-20', '12-18']
     assert ingredients == ['1', '5', '8', '11', '17', '32']
+    
+def test_count_fresh_ingredients():
+    fresh_ranges, ingredients = split_data(test_data)
+    
+    assert count_fresh_ingredients(fresh_ranges, ingredients) == 3
