@@ -4,4 +4,5 @@ def load_data(file: str) -> list[str]:
     
 def list_transformer(row: list[str]) -> list[list[str]]:
     return [[x for x in item] for item in row]
-    
+
+
