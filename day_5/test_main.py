@@ -23,5 +23,8 @@ def test_split_input_data():
     
 def test_count_fresh_ingredients():
     fresh_ranges, ingredients = split_data(test_data)
-    
     assert count_fresh_ingredients(fresh_ranges, ingredients) == 3
+    
+def test_input_data():
+    fresh_ranges, ingredients = split_data(load_data('day_5/input.txt'))
+    assert count_fresh_ingredients(fresh_ranges, ingredients) == 635
