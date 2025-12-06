@@ -18,7 +18,7 @@ def test_ingredient_is_fresh():
 def test_split_input_data():
     fresh_ranges, ingredients = split_data(test_data)
     
-    assert fresh_ranges == ['3-5', '10-14', '16-20', '12-18']
+    assert fresh_ranges == ['3-5', '16-20', '12-18', '10-14']
     assert ingredients == ['1', '5', '8', '11', '17', '32']
     
 def test_count_fresh_ingredients():
@@ -28,3 +28,23 @@ def test_count_fresh_ingredients():
 def test_input_data():
     fresh_ranges, ingredients = split_data(load_data('day_5/input.txt'))
     assert count_fresh_ingredients(fresh_ranges, ingredients) == 635
+    
+def test_considered_as_fresh():
+    fresh_ranges, _ = split_data(test_data)
+    assert considered_as_fresh(fresh_ranges) == 14
+    assert considered_as_fresh(['10-15']) == 6
+    assert considered_as_fresh(['10-15', '20-30']) == 17
+    assert considered_as_fresh(['10-15', '11-14', '20-30']) == 17
+    assert considered_as_fresh(['10-15', '1-20']) == 20
+    assert considered_as_fresh(['10-15', '5-20']) == 16
+    assert considered_as_fresh(['5-20', '10-15']) == 16
+    assert considered_as_fresh(['5-20', '10-30']) == 26
+    assert considered_as_fresh(['10-10', '10-10']) == 1
+    
+    
+# def test_considered_as_fresh_input():
+#     fresh_ranges, _ = split_data(load_data('day_5/input.txt'))
+#     result = considered_as_fresh(fresh_ranges)
+#     print(f"\nResult for input: {result}")
+#     assert result > 341494366700450 # Must be higher than this
+#     assert result < 370349436553190
