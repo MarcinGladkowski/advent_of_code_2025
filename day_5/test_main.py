@@ -32,32 +32,29 @@ def test_input_data():
     fresh_ranges, ingredients = split_data(load_data('day_5/input.txt'))
     assert count_fresh_ingredients(fresh_ranges, ingredients) == 635
     
-# def test_is_fully_not_overlapping():
-#     assert is_fully_not_overlapping([range(3, 5)], range(6, 9)) is True
-#     assert is_fully_not_overlapping([range(3, 5)], range(4, 12)) is False
-#     assert is_fully_not_overlapping([range(3, 5)], range(1, 3)) is False
-#     assert is_fully_not_overlapping([range(3, 5)], range(5, 7)) is False
-#     assert is_fully_not_overlapping([range(3, 5)], range(5, 10)) is False    
-
 def test_is_left_overlapping():
     assert left_overlapping([range(3, 6)], range(12, 19)) is False
     
+def test_is_right_overlapping():
+    assert right_overlapping([range(10, 15)], range(1, 20)) is False
+    
 def test_considered_as_fresh():
-    # fresh_ranges, _ = split_data(test_data)
-    # assert considered_as_fresh(fresh_ranges) == 14
+    fresh_ranges, _ = split_data(test_data)
+    assert considered_as_fresh(fresh_ranges) == 14
     assert considered_as_fresh(['10-15']) == 6
     assert considered_as_fresh(['10-15', '20-30']) == 17
-#     assert considered_as_fresh(['10-15', '11-14', '20-30']) == 17
-#     assert considered_as_fresh(['10-15', '1-20']) == 20
-#     assert considered_as_fresh(['10-15', '5-20']) == 16
-#     assert considered_as_fresh(['5-20', '10-15']) == 16
-#     assert considered_as_fresh(['5-20', '10-30']) == 26
-#     assert considered_as_fresh(['10-10', '10-10']) == 1
+    assert considered_as_fresh(['10-15', '11-14', '20-30']) == 17
+    assert considered_as_fresh(['10-15', '1-20']) == 20
+    assert considered_as_fresh(['10-15', '5-20']) == 16
+    assert considered_as_fresh(['5-20', '10-15']) == 16
+    assert considered_as_fresh(['5-20', '10-30']) == 26
+    assert considered_as_fresh(['10-10', '10-10']) == 1
     
-    
-# def test_considered_as_fresh_input():
-#     fresh_ranges, _ = split_data(load_data('day_5/input.txt'))
-#     result = considered_as_fresh(fresh_ranges)
-#     print(f"\nResult for input: {result}")
-#     assert result > 341494366700450 # Must be higher than this
-#     assert result < 370349436553190
+def test_considered_as_fresh_input():
+    fresh_ranges, _ = split_data(load_data('day_5/input.txt'))
+    assert 183 == len(fresh_ranges)
+    result = considered_as_fresh(fresh_ranges)
+    print(f"\nResult for input: {result}")
+    assert result > 341494366700450 # Must be higher than this
+    assert result < 370349436553190
+    assert result < 552938196956099

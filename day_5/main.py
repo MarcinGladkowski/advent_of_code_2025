@@ -13,6 +13,13 @@ def is_fresh(fresh_range: range, ingredient: int) -> bool:
     return ingredient in fresh_range
 
 
+def is_fully_inclusive(current_ranges: list[range], new_range: range) -> bool:
+    for current_range in current_ranges:
+        if current_range.start <= new_range.start and current_range.stop >= new_range.stop:
+            return True
+    return False
+    
+
 def left_overlapping(current_ranges: list[range], new_range: range) -> range|bool:
     for i, current_range in enumerate(current_ranges):
         if current_range.start < new_range.start and current_range.stop > new_range.start:
@@ -23,6 +30,13 @@ def right_overlapping(current_ranges: list[range], new_range: range) -> range|bo
     for i, current_range in enumerate(current_ranges):
         if current_range.start >= new_range.start and current_range.stop > new_range.stop:
             return i, range(new_range.start, current_range.stop)
+    return False
+
+
+def is_fully_overlapping(current_ranges: list[range], new_range: range) -> range|bool:
+    for i, current_range in enumerate(current_ranges):
+        if current_range.start >= new_range.start and current_range.stop <= new_range.stop:
+            return i, range(new_range.start, new_range.stop)
     return False
 
 
@@ -38,14 +52,27 @@ def considered_as_fresh(fresh_range: list):
         if i == 0:
             ranges.append(fresh_range)
             continue
+            
+        if is_fully_inclusive(ranges, fresh_range) is True:
+            print(f"Range {fresh_range} is fully inclusive in {ranges}, skipping")
+            continue
+        
+        # is fully wider than
+        if is_fully_overlapping(ranges, fresh_range) is not False:
+            index, new_range = is_fully_overlapping(ranges, fresh_range)
+            print(f"fully overlapping found, merging {ranges[index]} and {fresh_range} into {new_range}")
+            ranges[index] = new_range
+            continue
         
         if left_overlapping(ranges, fresh_range) is not False:
             index, new_range = left_overlapping(ranges, fresh_range)
+            print(f"left overlapping found, merging {ranges[index]} and {fresh_range} into {new_range}")
             ranges[index] = new_range
             continue
         
         if right_overlapping(ranges, fresh_range) is not False:
             index, new_range = right_overlapping(ranges, fresh_range)
+            print(f"right overlapping found, merging {ranges[index]} and {fresh_range} into {new_range}")
             ranges[index] = new_range
             continue
         
