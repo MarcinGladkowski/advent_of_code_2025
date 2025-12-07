@@ -22,7 +22,7 @@ def is_fully_inclusive(current_ranges: list[range], new_range: range) -> bool:
 
 def left_overlapping(current_ranges: list[range], new_range: range) -> range|bool:
     for i, current_range in enumerate(current_ranges):
-        if current_range.start < new_range.start and current_range.stop > new_range.start:
+        if current_range.start < new_range.start and current_range.stop >= new_range.start:
             return i, range(current_range.start, new_range.stop)
     return False
 
@@ -82,7 +82,11 @@ def considered_as_fresh(fresh_range: list):
         
         print(f"Adding range {fresh_range}")
         ranges.append(fresh_range)
-        
-    print(f"\nCurrent merged ranges: {ranges}")
-        
+    
+    print("Final ranges:")
+    total = 0
+    for r in ranges:
+        total += len(r) + 1
+        print(f"Range from {r.start} to {r.stop} (len: {len(r) + 1})")
+ 
     return sum([len(x) + 1 for x in ranges])
