@@ -56,5 +56,9 @@ def test_considered_as_fresh_input():
     result = considered_as_fresh(fresh_ranges)
     print(f"\nResult for input: {result}")
     assert result > 341494366700450 # Must be higher than this
+    assert result != 369761800782631
     assert result < 370349436553190
     assert result < 552938196956099
+    
+    
+print((296797126337251 - 1119138043168) + (431275643240865 - 296797126337252) + (450137550110441 - 432967082833628) + (559998363324659 - 454387138843073))

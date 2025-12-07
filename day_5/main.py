@@ -45,6 +45,10 @@ def considered_as_fresh(fresh_range: list):
     
     print(f"ranges to test {fresh_ranges}")
     
+    fresh_ranges.sort(key=lambda r: r.start)
+    
+    print(f"sorted ranges to test {fresh_ranges}")
+    
     ranges = []
     for i, fresh_range in enumerate(fresh_ranges):
         
