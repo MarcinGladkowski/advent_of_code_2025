@@ -13,3 +13,7 @@ def calculate(problems: dict[int, list[str]]) -> int:
         total += reduce(available_operations[problem_list[-1]], map(int, problem_list[:-1]))
         
     return total
+
+
+def calculate_columns():
+    pass

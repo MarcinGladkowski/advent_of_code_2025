@@ -1,4 +1,5 @@
 from main import calculate
+import re
 
 def load_data(file: str) -> list[str]:
     problems = {}
@@ -9,6 +10,34 @@ def load_data(file: str) -> list[str]:
                 problems.setdefault(i, []).append(el)
 
     return problems
+
+
+def load_data_part_2(file: str) -> list[str]:
+    problems = {}
+    with open(file) as f:
+        # get last line and determine spaces
+        lines = f.readlines()
+        
+        last_line = lines[-1]
+        # spacing determines fill empty spaces
+        # for last column do not remove 1 space
+        spacing = re.findall("([\*|\+]\s+)", last_line)
+        
+        print(f"spacing: {spacing}")
+        
+        for line in lines:
+            print(f"line: '{line}'")    
+            for i, space in enumerate(spacing):
+                print(line[i:len(space)-1])
+
+    return problems
+
+
+print(load_data_part_2('day_6/test_input.txt'))
+
+def test_maching_spaces():
+    matched = re.findall("([\*|\+]\s+)", "*   +   *   +  ")
+    assert matched == ['*   ', '+   ', '*   ', '+  ']
 
 
 def test_calculate():    
