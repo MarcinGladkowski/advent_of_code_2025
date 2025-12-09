@@ -24,4 +24,22 @@ def find_next_splitter(starting: tuple[int, int], data: list[list[str]]):
     
     return results
         
+        
+def find_all_splitters(starting: tuple[int, int], data: list[list[str]], splitters=None):
+
+    if splitters is None:
+        splitters = set()
+
+    next_splitters = find_next_splitter(starting, data)
     
+    
+    for splitter in next_splitters:
+        
+        if splitter in splitters:
+            continue
+        
+        splitters.add(splitter)
+        find_all_splitters(splitter, data, splitters)
+        
+    # return unique splitters    
+    return list(set(splitters))
