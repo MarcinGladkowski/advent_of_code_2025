@@ -41,6 +41,6 @@ def test_find_next_splitters_none_next():
 def test_find_all_splitters_for_testing_data():
     assert 21 == len(find_all_splitters((0, 7), testing)) + 1 # starting point
     
-# 1603 is too high
-print("### Part 1 ###")
-print(len(find_all_splitters((2, 71), load_data("day_7/input.txt"))) + 1)
+    
+def test_find_all_splitters_for_full_data():
+    assert 1602 == len(find_all_splitters((2, 71), load_data("day_7/input.txt")))
