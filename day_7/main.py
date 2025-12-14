@@ -32,7 +32,6 @@ def find_all_splitters(starting: tuple[int, int], data: list[list[str]], splitte
 
     next_splitters = find_next_splitter(starting, data)
     
-    
     for splitter in next_splitters:
         
         if splitter in splitters:
@@ -43,3 +42,40 @@ def find_all_splitters(starting: tuple[int, int], data: list[list[str]], splitte
         
     # return unique splitters    
     return list(set(splitters))
+
+
+class Node:
+    def __init__(self, value: tuple[int, int], parent=None):
+        self.parent = parent
+        self.value = value
+        self.children = []
+
+
+def find_next_path(starting: tuple[int, int], data: list[list[str]] = None):
+    '''Split into two directions'''
+    
+    y, x = starting
+    
+    results = []
+    
+    for row_i in range(y, len(data), 2):
+        if data[row_i][x] == "^":
+            results.append((row_i, x-1))
+            results.append((row_i, x+1))
+
+    
+    return results
+        
+
+def find_splitting_paths(parent: Node, data: list[list[str]]):
+    '''
+    Instead to we creare tree with relations parent -> children (multiple)
+    '''
+    children = find_next_path(parent.value, data)
+    
+    for child in children:
+        child_node = Node(child, parent)
+        parent.children.append(child_node)
+        find_splitting_paths(child_node, data)
+            
+    return parent
