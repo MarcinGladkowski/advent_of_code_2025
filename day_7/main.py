@@ -59,7 +59,7 @@ class Node:
         return self.value[0] == area_length - 2
 
     def __repr__(self):
-        return f"Node({self.value})"
+        return f"Node({self.value[0]}-{self.value[1]})"
     
 
 def find_next_path(starting: tuple[int, int], data: list[list[str]] = None):
@@ -90,8 +90,9 @@ def find_splitting_paths(parent: list[Node], data: list[list[str]], paths=None) 
         path = parent[:] + [Node(child, parent[-1])]
         paths.append(path)
         find_splitting_paths(path, data, paths)
-    
-    # return paths only for these which gets end of area
+
     filtered_paths = list(filter(lambda p: p[-1].is_leaf(len(data)), paths))
-    
-    return filtered_paths
+        
+    unique = list(set(list(map(lambda p: '_'.join(str(node) for node in p), filtered_paths))))
+
+    return unique
