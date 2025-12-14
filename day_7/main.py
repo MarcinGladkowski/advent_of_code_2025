@@ -71,7 +71,6 @@ def find_next_path(starting: tuple[int, int], data: list[list[str]] = None):
             results.append((row_i, x-1))
             results.append((row_i, x+1))
 
-    
     return results
         
 
@@ -85,11 +84,9 @@ def find_splitting_paths(parent: list[Node], data: list[list[str]], paths=None) 
     children = find_next_path(parent[-1].value, data)
     
     for child in children:
-        
         path = parent[:] + [Node(child, parent[-1])]
-        
         paths.append(path)
-        
         find_splitting_paths(path, data, paths)
-            
+    
+    # return paths only for these which gets end of area
     return paths
