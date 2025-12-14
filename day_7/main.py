@@ -49,6 +49,11 @@ class Node:
         self.parent = parent
         self.value = value
         self.children = []
+        
+    def add_child(self, child_node):
+        self.children.append(child_node)
+        
+        return child_node
 
 
 def find_next_path(starting: tuple[int, int], data: list[list[str]] = None):
@@ -74,8 +79,6 @@ def find_splitting_paths(parent: Node, data: list[list[str]]):
     children = find_next_path(parent.value, data)
     
     for child in children:
-        child_node = Node(child, parent)
-        parent.children.append(child_node)
-        find_splitting_paths(child_node, data)
+        find_splitting_paths(parent.add_child(Node(child, parent)), data)
             
     return parent
