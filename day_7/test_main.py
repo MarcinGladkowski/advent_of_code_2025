@@ -44,22 +44,19 @@ testing = load_data("day_7/test_input.txt")
 # def test_find_all_splitters_for_full_data():
 #     assert 1602 == len(find_all_splitters((2, 71), load_data("day_7/input.txt")))
 
-def unpack_unique_leafs(root_node: Node, paths=None):
+def unpack_paths(root_node: Node, paths=None):
     
     if paths is None:
         paths = []
-        
-    path = []
     
     if root_node.parent is not None:
-        path = [root_node.value]
+        paths.append(root_node.value)
     
-    # children
     if root_node.parent is None:
-        path.append(root_node.value)
+        paths.append(root_node.value)
     
     for child in root_node.children:
-        paths.append(unpack_unique_leafs(child, paths=paths))
+        unpack_paths(child, paths=paths)
 
     return paths
 
@@ -74,9 +71,12 @@ def test_find_path_for_two_splitters():
         '...............'
     ]
     
-    tree_result = find_splitting_paths(Node((0, 7)), test_input)
+    tree_result = find_splitting_paths([Node((0, 7))], test_input)
     
-    paths = unpack_unique_leafs(tree_result)
+    print("TREE RESULT")
+    pprint(tree_result)
+    
+    #paths = unpack_paths(tree_result)
 
     assert isinstance(tree_result, Node)
     

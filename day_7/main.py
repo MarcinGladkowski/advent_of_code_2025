@@ -55,6 +55,9 @@ class Node:
         
         return child_node
 
+    def __repr__(self):
+        return f"Node({self.value})"
+    
 
 def find_next_path(starting: tuple[int, int], data: list[list[str]] = None):
     '''Split into two directions'''
@@ -72,13 +75,21 @@ def find_next_path(starting: tuple[int, int], data: list[list[str]] = None):
     return results
         
 
-def find_splitting_paths(parent: Node, data: list[list[str]]):
+def find_splitting_paths(parent: list[Node], data: list[list[str]], paths=None) -> Node:
     '''
     Instead to we creare tree with relations parent -> children (multiple)
     '''
-    children = find_next_path(parent.value, data)
+    if paths is None:
+        paths = []
+    
+    children = find_next_path(parent[-1].value, data)
     
     for child in children:
-        find_splitting_paths(parent.add_child(Node(child, parent)), data)
+        
+        path = parent[:] + [Node(child, parent[-1])]
+        
+        paths.append(path)
+        
+        find_splitting_paths(path, data, paths)
             
-    return parent
+    return paths
