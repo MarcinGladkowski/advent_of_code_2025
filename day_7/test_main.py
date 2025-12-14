@@ -61,22 +61,29 @@ def unpack_paths(root_node: Node, paths=None):
     return paths
 
 def test_find_path_for_two_splitters():
-    
+    # 4 unique paths expected
     test_input = [
         '.......S.......',
         '...............',
         '.......^.......',
         '...............',
-        '......^.^......',
+        '......^.^......', # for last step
         '...............'
     ]
     
     tree_result = find_splitting_paths([Node((0, 7))], test_input)
     
+    assert 4 == len(tree_result)
+    
+
+def test_find_path_for_testing_data():
+    tree_result = find_splitting_paths([Node((0, 7))], testing)
+    
+    # remove duplicates ?
+    
+    
     print("TREE RESULT")
     pprint(tree_result)
     
-    #paths = unpack_paths(tree_result)
-
-    assert isinstance(tree_result, Node)
+    assert True
     

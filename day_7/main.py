@@ -54,6 +54,9 @@ class Node:
         self.children.append(child_node)
         
         return child_node
+    
+    def is_leaf(self, area_length: int = 0) -> bool:
+        return self.value[0] == area_length - 2
 
     def __repr__(self):
         return f"Node({self.value})"
@@ -89,4 +92,6 @@ def find_splitting_paths(parent: list[Node], data: list[list[str]], paths=None) 
         find_splitting_paths(path, data, paths)
     
     # return paths only for these which gets end of area
-    return paths
+    filtered_paths = list(filter(lambda p: p[-1].is_leaf(len(data)), paths))
+    
+    return filtered_paths
