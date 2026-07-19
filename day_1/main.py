@@ -45,6 +45,9 @@ def move_right(curent_possition_count: int, move_count: int) -> tuple[int, int]:
 
 
 def count_ticks_at_zero(current_position: int, full_dial_circles: int) -> int:
+    """
+        Part 1 requirementd
+    """
     return 1 if current_position % 100 == 0 else 0
 
 
@@ -55,10 +58,6 @@ def count_all_dial_points(current_position: int, full_dial_circles: int) -> int:
     
     return 1 if current_position % 100 == 0 else 0
     
-def write_log(message: str) -> None:
-    with open("log.txt", "a") as log_file:
-        log_file.write(message + "\n")
-
 def run(moves: list[str], counter_function: callable) -> int:
     current_position = STARTING_POSITION_CONST
     zero_counter = 0
@@ -73,9 +72,7 @@ def run(moves: list[str], counter_function: callable) -> int:
             current_position, full_dial_circles = move_right(current_position, count)
         
         zero_counter += counter_function(current_position, full_dial_circles)
-        
-        #write_log(f"Move: {move}, Current position: {current_position}, Full circles: {full_dial_circles}, Zero counter: {zero_counter}")
-    
+            
     return zero_counter
 
 
