@@ -17,7 +17,6 @@ def move_left(pointer: int, steps: int) -> tuple[int, int]  :
     full_dials = int(steps / 100) if steps > 100 else 0
     
     if steps > 100:
-        full_dials = int(steps / 100) if steps > 100 else 0
         steps = 0 if steps % 100 == 0 else steps % 100
     
     result = pointer - steps
@@ -28,23 +27,26 @@ def move_left(pointer: int, steps: int) -> tuple[int, int]  :
     return result, full_dials # position, full dials
         
 
-def move_right(curent_possition_count: int, move_count: int) -> tuple[int, int]:
+def move_right(pointer: int, steps: int) -> tuple[int, int]:
     
-    full_circles = int(move_count / 100) if move_count > 100 else 1
+    full_dials = int(steps / 100) if steps > 100 else 0
     
-    if curent_possition_count + move_count > 100:      
-        move_count = move_count % 100 if move_count > 100 else move_count
-        
-        if (curent_possition_count + move_count) > 100:
-            return (curent_possition_count + move_count) - 100, full_circles
-        
-        return curent_possition_count + move_count, full_circles
+    if steps > 100:
+        steps = 0 if steps % 100 == 0 else steps % 100
     
-    if curent_possition_count + move_count == 100:
-        return 0, 0
+    result = pointer + steps
     
-    return curent_possition_count + move_count, 0
-
+    if result == 100 and full_dials > 0:
+        return 0, full_dials # 0 is not a full circle
+    
+    if result == 100:
+        return 0, 0 # 0 is not a full circle
+    
+    if result > 100:
+        return result - 100, full_dials + 1
+    
+    return result, full_dials # position, full dials
+    
 
 def count_ticks_at_zero(current_position: int, full_dial_circles: int) -> int:
     return 1 if current_position % 100 == 0 else 0
@@ -54,6 +56,7 @@ def count_all_dial_points(current_position: int, dials: int) -> int:
     zero_position = 1 if current_position % 100 == 0 else 0
     
     return dials + zero_position
+
     
 def run(moves: list[str], counter_function: callable) -> int:
     pointer = STARTING_POSITION_CONST
@@ -62,18 +65,15 @@ def run(moves: list[str], counter_function: callable) -> int:
     for move in moves:
         direction = get_move_direction(move)
         count = get_move_count(move)
-        
-        initial_point = pointer
-                
+                        
         if direction == LEFT_DIRECTION_CONST:
             pointer, dials = move_left(pointer, count)
         else:
             pointer, dials = move_right(pointer, count)
             
-        result = counter_function(pointer, dials)
-            
+        result = counter_function(pointer, dials)    
         count_result += result
-        print(f"initial {initial_point} | direction {direction} | move_count {count} | pointer {pointer} | result {result}")
+        
     return count_result
 
 

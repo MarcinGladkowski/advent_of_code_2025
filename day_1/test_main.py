@@ -37,14 +37,14 @@ from main import *
 #     assert move_right(82, 30)[0] == 12
 #     assert move_right(50, 1000)[0] == 50
 #     assert move_right(50, 1020) == (70, 10)
-#     assert move_right(50, 1068) == (18, 10)
+#     assert move_right(50, 1068) == (18, 11)
         
-# def test_result_for_R1000_after_start():    
-#     """
-#        Initial point is 50
-#     """
-#     assert run(['R1000'], count_all_dial_points) == 10
-#     assert run(['R1050'], count_all_dial_points) == 11
+def test_result_for_R1000_after_start():    
+    """
+       Initial point is 50
+    """
+    # assert run(['R1000'], count_all_dial_points) == 10
+    assert run(['R1050'], count_all_dial_points) == 11
 
 
 # def test_result_for_L1000_after_start():    
