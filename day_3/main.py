@@ -1,4 +1,4 @@
-from itertools import combinations
+from itertools import combinations, permutations
 
 def get_largest_voltage(value: str, factor: int = 2):
     
