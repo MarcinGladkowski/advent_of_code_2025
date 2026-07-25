@@ -29,10 +29,10 @@ def mark_numbers(value: str, length: int = 12):
             
             if index_to_value[n]['value'] == highest:
                 # get the max index from previous value, it's a boundary for our number
-                max_marked_index = max([x if n['mark'] and n['value'] == highest + 1 else 0 for x, n in index_to_value.items()])
+                # max_marked_index = max([x if n['mark'] and n['value'] == highest + 1 else 0 for x, n in index_to_value.items()])
                 
-                if max_marked_index != 0 and n > max_marked_index:
-                    continue
+                # if max_marked_index != 0 and n > max_marked_index:
+                #     continue
                 
                 index_to_value[n]['mark'] = True
                 counter += 1

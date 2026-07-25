@@ -14,9 +14,9 @@ def test_get_largest_voltage():
 
 
 def test_get_largest_by_alghoritm():
-    # assert mark_numbers('818181911112111', 12) == '888911112111'
-    # assert mark_numbers('987654321111111', 12) == '987654321111'
-    # assert mark_numbers('811111111111119', 12) == '811111111119'
+    assert mark_numbers('818181911112111', 12) == '888911112111'
+    assert mark_numbers('987654321111111', 12) == '987654321111'
+    assert mark_numbers('811111111111119', 12) == '811111111119'
     assert mark_numbers('234234234234278', 12) == '434234234278'
 
     
