@@ -1,5 +1,4 @@
 from main import *
-from loader import load_data
 
 def test_get_largest_voltage():
     assert get_largest_voltage("987654321111111") == '98'
@@ -11,7 +10,6 @@ def test_get_largest_voltage():
     assert get_largest_voltage("811111111111119", 12) == '811111111119'
     assert get_largest_voltage("234234234234278", 12) == '434234234278'
     assert get_largest_voltage("818181911112111", 12) == '888911112111'
-
 
 def test_get_largest_by_alghoritm():
     assert mark_numbers('818181911112111', 12) == '888911112111'
