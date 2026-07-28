@@ -52,4 +52,8 @@ def mark_numbers(value: str, max_length: int = 12):
 
 
 def calculate_max_voltage_sum_for_big_factor(values: list[str], factor: int = 12) -> int:
-    return sum(map(lambda x: int(mark_numbers(x, factor)), values))
+    sum = 0
+    for value in values:        
+        sum += int(mark_numbers(value, factor))
+    
+    return sum
