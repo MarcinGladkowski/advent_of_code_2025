@@ -18,7 +18,7 @@ def calculate_max_voltage_sum(values: list[str], factor: int = 2) -> int:
     return sum(map(lambda x: int(get_largest_voltage(x, factor)), values))
     
     
-def mark_numbers(value: str, length: int = 12):    
+def mark_numbers(value: str, max_length: int = 12):    
     value = list(reversed(value))
 
     index_to_value = {n: { "value": int(x), "mark": False} for n, x in enumerate(value)}
@@ -26,6 +26,10 @@ def mark_numbers(value: str, length: int = 12):
     counter = 0
     
     for highest in reversed(range(1, 10)):
+        
+        if counter == max_length:
+            break
+        
         for n in index_to_value:    
             if index_to_value[n]['value'] == highest:
                 actually_marked = list(filter(lambda x: x != None, [x if n['mark'] else None for x, n in index_to_value.items()]))
@@ -39,9 +43,8 @@ def mark_numbers(value: str, length: int = 12):
                 
                 index_to_value[n]['mark'] = True
                 counter += 1
-                
-                            
-            if counter == length:
+                                
+            if counter == max_length:
                 break
             
     # get number back 
