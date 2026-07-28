@@ -1,5 +1,6 @@
 from itertools import combinations, permutations
 from pprint import pprint
+from functools import reduce
 
 def get_largest_voltage(value: str, factor: int = 2):
     
@@ -25,17 +26,20 @@ def mark_numbers(value: str, length: int = 12):
     counter = 0
     
     for highest in reversed(range(1, 10)):
-        for n in index_to_value:
-            
+        for n in index_to_value:    
             if index_to_value[n]['value'] == highest:
-                # get the max index from previous value, it's a boundary for our number
-                # max_marked_index = max([x if n['mark'] and n['value'] == highest + 1 else 0 for x, n in index_to_value.items()])
+                actually_marked = list(filter(lambda x: x != None, [x if n['mark'] else None for x, n in index_to_value.items()]))
                 
-                # if max_marked_index != 0 and n > max_marked_index:
-                #     continue
+                if (
+                    actually_marked and 
+                    max(actually_marked) - min(actually_marked) == 12
+                    and n > max(actually_marked) 
+                ):
+                    continue
                 
                 index_to_value[n]['mark'] = True
                 counter += 1
+                
                             
             if counter == length:
                 break
