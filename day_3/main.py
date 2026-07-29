@@ -27,16 +27,16 @@ def mark_numbers(value: str, max_length: int = 12):
     
     for highest in reversed(range(1, 10)):
         
-        if counter == max_length:
-            break
-        
         for n in index_to_value:    
+            
+            if counter == max_length:
+                break
+            
             if index_to_value[n]['value'] == highest:
                 actually_marked = list(filter(lambda x: x != None, [x if n['mark'] else None for x, n in index_to_value.items()]))
                 
                 if (
-                    actually_marked and 
-                    max(actually_marked) - min(actually_marked) == 12
+                    actually_marked
                     and n > max(actually_marked) 
                 ):
                     continue
