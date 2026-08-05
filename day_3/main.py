@@ -51,6 +51,14 @@ def mark_numbers(value: str, max_length: int = 12):
     return ''.join([str(v['value']) if v['mark'] == True else '' for x, v in index_to_value.items()])[::-1]
 
 
+def find_highest_chunk(values: str, factor: int = 12):
+    candidates = []
+
+    for value in find_chunks(values, factor):
+        candidates.append(int(mark_numbers(value, factor)))
+
+    return max(candidates)
+
 def calculate_max_voltage_sum_for_big_factor(values: list[str], factor: int = 12) -> int:
     sum = 0
     index = 0
@@ -62,13 +70,30 @@ def calculate_max_voltage_sum_for_big_factor(values: list[str], factor: int = 12
 
     return sum
 
-def find_chunk(values: str, factor: int = 12):
+def calculate_max_voltage_sum_for_big_factor_from_chunks(values: list[str], factor: int = 12) -> int:
+    sum = 0
+    index = 0
+    for value in values:
+        voltage = find_highest_chunk(value, factor)
+        print(index, voltage)
+        sum += int(voltage)
+        index += 1
+
+    return sum
+
+
+def find_chunks(values: str, factor: int = 12):
 
     highest_value = max(int(x) for x in values)
-
     chunks = []
 
+    if values.index(str(highest_value)) > len(values) - 12:
+        return [values]
+
     for index, char in enumerate(values):
+        if index > len(values) - 12:
+            break
+
         if int(char) == highest_value:
             chunks.append(values[index:])
 
