@@ -1,5 +1,4 @@
 from loader import load_data
-from pathlib import Path
 from main import *
 
 

@@ -1,8 +1,5 @@
-from itertools import combinations, permutations
-from pprint import pprint
-from functools import reduce
-
-from dulwich.porcelain import branch_remotes_list
+from itertools import combinations
+import re
 
 
 def get_largest_voltage(value: str, factor: int = 2):
@@ -56,7 +53,23 @@ def mark_numbers(value: str, max_length: int = 12):
 
 def calculate_max_voltage_sum_for_big_factor(values: list[str], factor: int = 12) -> int:
     sum = 0
+    index = 0
     for value in values:
-        sum += int(mark_numbers(value, factor))
+        voltage = mark_numbers(value, factor)
+        print(index, voltage)
+        sum += int(voltage)
+        index += 1
 
     return sum
+
+def find_chunk(values: str, factor: int = 12):
+
+    highest_value = max(int(x) for x in values)
+
+    chunks = []
+
+    for index, char in enumerate(values):
+        if int(char) == highest_value:
+            chunks.append(values[index:])
+
+    return chunks
