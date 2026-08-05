@@ -2,58 +2,61 @@ from itertools import combinations, permutations
 from pprint import pprint
 from functools import reduce
 
+from dulwich.porcelain import branch_remotes_list
+
+
 def get_largest_voltage(value: str, factor: int = 2):
-    
+
     max_combination = 0
     combinations_list = combinations(value, factor)
-    
+
     for combo in combinations_list:
         combination_value = int(''.join(combo))
         if combination_value > max_combination:
             max_combination = combination_value
-    
+
     return str(max_combination)
 
 def calculate_max_voltage_sum(values: list[str], factor: int = 2) -> int:
     return sum(map(lambda x: int(get_largest_voltage(x, factor)), values))
-    
-    
-def mark_numbers(value: str, max_length: int = 12):    
+
+
+def mark_numbers(value: str, max_length: int = 12):
     value = list(reversed(value))
 
     index_to_value = {n: { "value": int(x), "mark": False} for n, x in enumerate(value)}
-    
+
     counter = 0
-    
+
     for highest in reversed(range(1, 10)):
-        
-        for n in index_to_value:    
-            
+        for n in index_to_value:
+
             if counter == max_length:
                 break
-            
+
             if index_to_value[n]['value'] == highest:
-                actually_marked = list(filter(lambda x: x != None, [x if n['mark'] else None for x, n in index_to_value.items()]))
-                
+                actually_marked = list(filter(lambda x: x is not None, [x if n['mark'] else None for x, n in index_to_value.items()]))
+
                 if (
                     actually_marked
-                    and n > max(actually_marked) 
+                    and max(actually_marked) - min(actually_marked) == 12
+                    and max(actually_marked) < n
                 ):
-                    continue
-                
+                    break
+
                 index_to_value[n]['mark'] = True
                 counter += 1
-                                
+
             if counter == max_length:
                 break
-            
+
     # get number back 
     return ''.join([str(v['value']) if v['mark'] == True else '' for x, v in index_to_value.items()])[::-1]
 
 
 def calculate_max_voltage_sum_for_big_factor(values: list[str], factor: int = 12) -> int:
     sum = 0
-    for value in values:        
+    for value in values:
         sum += int(mark_numbers(value, factor))
-    
+
     return sum
